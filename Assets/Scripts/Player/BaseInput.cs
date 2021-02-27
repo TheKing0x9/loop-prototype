@@ -19,7 +19,8 @@ namespace Loop.Player
 
         protected void SetInput()
         {
-            _player.SetInput(_input);
+            if (_input != 0)
+                _player.SetInput(_input);
         }
     }
 
