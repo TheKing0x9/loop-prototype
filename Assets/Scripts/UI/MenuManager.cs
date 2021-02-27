@@ -18,11 +18,14 @@ namespace Loop.UI
         [SerializeField] private List<Animatable> _animatables;
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _exitButton;
+        [SerializeField] private float _duration;
 
         private void Start() 
         {
             _playButton.enabled = false;
             _exitButton.enabled = false;
+
+            AnimateIn();
         }
 
         private void OnAnimationDone()
@@ -36,7 +39,7 @@ namespace Loop.UI
             foreach(Animatable a in _animatables)
             {
                 a.transform.anchoredPosition = a.initPosition;
-                Tween.AnchoredPosition(a.transform, a.finalPosition, 1, 0, Tween.EaseInOutBack, Tween.LoopType.None, null, OnAnimationDone);
+                Tween.AnchoredPosition(a.transform, a.finalPosition, _duration, 0, Tween.EaseInOutBack, Tween.LoopType.None, null, OnAnimationDone);
             }
         }
 
@@ -45,16 +48,16 @@ namespace Loop.UI
             SceneManager.LoadScene(1);
         }
 
-        private void AnimateOut()
+        public void AnimateOut()
         {
             foreach (Animatable a in _animatables)
             {
                 a.transform.anchoredPosition = a.finalPosition;
-                Tween.AnchoredPosition(a.transform, a.initPosition, 1, 0, Tween.EaseInOutBack, Tween.LoopType.None, null, Play);
+                Tween.AnchoredPosition(a.transform, a.initPosition, _duration, 0, Tween.EaseInOutBack, Tween.LoopType.None, null, Play);
             }
         }
 
-        private void Exit()
+        public void Exit()
         {
             #if !UNITY_EDITOR
                 Application.Quit();

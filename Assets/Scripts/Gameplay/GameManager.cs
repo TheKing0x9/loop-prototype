@@ -1,8 +1,9 @@
 using UnityEngine;
-using Singleton = Pixelplacement.Singleton<Loop.Gameplay.GameManager>;
+using Text = UnityEngine.UI.Text;
 using RoundData = Loop.Data.RoundData;
 using IEnumerator = System.Collections.IEnumerator;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
+using Singleton = Pixelplacement.Singleton<Loop.Gameplay.GameManager>;
 
 namespace Loop.Gameplay
 {
@@ -20,6 +21,11 @@ namespace Loop.Gameplay
         [SerializeField] private Transform _AISpawnPoint;
         [SerializeField] private GameObject _playerGO;
         [SerializeField] private GameObject _AIGO;
+
+        [Header("UI Stuff")]
+
+        [SerializeField] private Text _playerScoreText;
+        [SerializeField] private Text _AIScoreText;
 
         
         private float _playerPoints;
@@ -158,6 +164,8 @@ namespace Loop.Gameplay
             else
                 _AIPoints++;
 
+            _playerScoreText.text = _playerPoints.ToString();
+            _AIScoreText.text = _AIPoints.ToString(); 
             SetLeader();
         }
 

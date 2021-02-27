@@ -770,11 +770,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animatables:
   - transform: {fileID: 925752282}
-    initPosition: {x: 0, y: 168, z: 0}
-    finalPosition: {x: 0, y: 605, z: 0}
+    initPosition: {x: 0, y: 605, z: 0}
+    finalPosition: {x: 0, y: 168, z: 0}
   - transform: {fileID: 1256518249}
-    initPosition: {x: 0, y: 0, z: 0}
-    finalPosition: {x: 0, y: -500, z: 0}
+    initPosition: {x: 0, y: -500, z: 0}
+    finalPosition: {x: 0, y: 0, z: 0}
   _playButton: {fileID: 1568994352}
   _exitButton: {fileID: 1700949619}
 --- !u!1 &1434641212
