@@ -7,5 +7,10 @@ namespace Loop.Data
     {
         [SerializeField] private string _name;
         [SerializeField] private string _desc;
+        [SerializeField] private Material _groundMaterial;
+
+        public string Name { get => _name; }
+        public string Desc { get => _desc; }
+        public Material GroundMaterial { get => _groundMaterial; }
     }
 }

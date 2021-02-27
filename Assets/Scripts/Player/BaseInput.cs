@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Loop.Player
+namespace Loop.Players
 {
     [RequireComponent(typeof(Player))]
     public abstract class BaseInput : MonoBehaviour

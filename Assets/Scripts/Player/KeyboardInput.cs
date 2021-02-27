@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Loop.Player
+namespace Loop.Players
 {
     public class KeyboardInput : BaseInput 
     {

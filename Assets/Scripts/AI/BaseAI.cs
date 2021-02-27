@@ -1,9 +1,49 @@
 using UnityEngine;
+using Loop.Players;
 
 namespace Loop.AI
 {
-    public class BaseAI : MonoBehaviour
+    [RequireComponent(typeof(Player))]
+    public abstract class BaseAI : MonoBehaviour
     {
+        [SerializeField] protected float _actionCountDown = 3f;
+        [SerializeField] protected LayerMask _groundMask;
+        [SerializeField] protected float _raycastDistance = 2f;
 
+        private Player _player;
+        protected float _currentTime;
+        protected Transform _target;
+
+        protected void SetPlayerInput(float input)
+        {
+            _player.SetInput(input);
+        }
+
+        protected abstract void Act();
+
+        protected virtual void ResetTimer()
+        {
+            _currentTime = _actionCountDown;
+        }
+
+        protected void Awake() 
+        {
+            ResetTimer();    
+            _target = GameObject.FindGameObjectWithTag("Target").transform;
+        }
+
+        protected void Update()
+        {
+            _currentTime -= Time.deltaTime;
+            if (_currentTime < 0)
+            {
+                ResetTimer();
+                Act();
+            }
+
+
+            RaycastHit hit;
+            bool result = Physics.Raycast(transform.position, -Vector3.up, _raycastDistance, _groundMask.value);
+        }
     }
 }

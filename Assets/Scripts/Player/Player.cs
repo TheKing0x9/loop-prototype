@@ -1,7 +1,7 @@
 using UnityEngine;
 using Loop.Utilities;
 
-namespace Loop.Player
+namespace Loop.Players
 {
     public class Player : MonoBehaviour
     {
