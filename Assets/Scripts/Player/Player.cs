@@ -37,7 +37,6 @@ namespace Loop.Players
 
         public void SetInput(float input)
         {
-            Debug.Log("nhvfld");
             _input = input;
         }
 

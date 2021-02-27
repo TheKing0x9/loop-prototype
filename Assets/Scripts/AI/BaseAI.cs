@@ -43,8 +43,6 @@ namespace Loop.AI
                 Act();
             }
 
-
-            RaycastHit hit;
             bool result = Physics.Raycast(transform.position, -Vector3.up, _raycastDistance, _groundMask.value);
             if (result)
                 Act();

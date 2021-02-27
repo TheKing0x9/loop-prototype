@@ -1,4 +1,5 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Loop.AI
 {
@@ -13,12 +14,12 @@ namespace Loop.AI
             if (diff.y < 0)
                 return;
 
-            float angle = Vector3.SignedAngle(position, targetPosition, Vector3.forward);
+            int random = Random.Range(1, 2);
 
-            Debug.Log(angle);
-
-            var sign = Mathf.Sign(angle);
-            SetPlayerInput(-sign);
+            if (random == 1)
+                SetPlayerInput(1);
+            else
+                SetPlayerInput(2);
         }
     }
 }

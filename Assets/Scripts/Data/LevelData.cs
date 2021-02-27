@@ -8,9 +8,11 @@ namespace Loop.Data
         [SerializeField] private string _name;
         [SerializeField] private string _desc;
         [SerializeField] private Material _groundMaterial;
+        [SerializeField] private int _pointsToWin;
 
         public string Name { get => _name; }
         public string Desc { get => _desc; }
         public Material GroundMaterial { get => _groundMaterial; }
+        public int PointsToWin { get => _pointsToWin; set => _pointsToWin = value; }
     }
 }
