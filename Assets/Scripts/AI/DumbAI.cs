@@ -13,12 +13,12 @@ namespace Loop.AI
             if (diff.y < 0)
                 return;
 
-            float angle = Vector3.SignedAngle(position, targetPosition, Vector3.up);
+            float angle = Vector3.SignedAngle(position, targetPosition, Vector3.forward);
 
             Debug.Log(angle);
 
             var sign = Mathf.Sign(angle);
-            SetPlayerInput(angle);
+            SetPlayerInput(sign);
         }
     }
 }

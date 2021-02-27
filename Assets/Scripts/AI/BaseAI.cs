@@ -29,6 +29,7 @@ namespace Loop.AI
         protected void Awake() 
         {
             ResetTimer();    
+            _player = GetComponent<Player>();
             _target = GameObject.FindGameObjectWithTag("Target").transform;
         }
 
@@ -44,6 +45,16 @@ namespace Loop.AI
 
             RaycastHit hit;
             bool result = Physics.Raycast(transform.position, -Vector3.up, _raycastDistance, _groundMask.value);
+            if (result)
+                Act();
+
+            result = Physics.Raycast(transform.position, -Vector3.right, _raycastDistance, _groundMask);
+            if (result)
+                SetPlayerInput(1);
+
+            result = Physics.Raycast(transform.position, Vector3.right, _raycastDistance, _groundMask);
+            if (result)
+                SetPlayerInput(-1);
         }
     }
 }
