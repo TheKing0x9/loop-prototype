@@ -18,7 +18,7 @@ namespace Loop.AI
             Debug.Log(angle);
 
             var sign = Mathf.Sign(angle);
-            SetPlayerInput(sign);
+            SetPlayerInput(-sign);
         }
     }
 }

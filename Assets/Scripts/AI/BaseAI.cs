@@ -9,6 +9,7 @@ namespace Loop.AI
         [SerializeField] protected float _actionCountDown = 3f;
         [SerializeField] protected LayerMask _groundMask;
         [SerializeField] protected float _raycastDistance = 2f;
+        [SerializeField] protected float _sideRayDistance = 0.2f;
 
         private Player _player;
         protected float _currentTime;
@@ -48,11 +49,11 @@ namespace Loop.AI
             if (result)
                 Act();
 
-            result = Physics.Raycast(transform.position, -Vector3.right, _raycastDistance, _groundMask);
+            result = Physics.Raycast(transform.position, -Vector3.right, _sideRayDistance, _groundMask);
             if (result)
                 SetPlayerInput(1);
 
-            result = Physics.Raycast(transform.position, Vector3.right, _raycastDistance, _groundMask);
+            result = Physics.Raycast(transform.position, Vector3.right, _sideRayDistance, _groundMask);
             if (result)
                 SetPlayerInput(-1);
         }
