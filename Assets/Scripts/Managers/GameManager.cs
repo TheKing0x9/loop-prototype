@@ -19,6 +19,7 @@ namespace Loop.Managers
         [SerializeField] private int _pointsToWin = 5;
         [SerializeField] private float _startDelay = 3f;
         [SerializeField] private float _endDelay = 3f;
+        [SerializeField] private Transform _target;
 
         [Header("Instantiation Details")]
         [SerializeField] private Transform _playerSpawnPoint;
@@ -48,6 +49,7 @@ namespace Loop.Managers
             _timer = 0f;
             SpawnAllLoops();
             _gameState = GameState.Start;
+            EffectsManager.Instance.StartAnim();
         }
 
         private void Update() 
@@ -93,6 +95,7 @@ namespace Loop.Managers
             var text = "";
             if (Won())
             {
+                EffectsManager.Instance.Confetti(_target.position);
                 _roundData.CurrentRound++;
                 if (_roundData.CurrentRound > _roundData.RoundsPerLevel)
                 {
@@ -178,6 +181,7 @@ namespace Loop.Managers
 
             SetText();
             SetLeader();
+            EffectsManager.Instance.Confetti(_target.position);
         }
 
 
