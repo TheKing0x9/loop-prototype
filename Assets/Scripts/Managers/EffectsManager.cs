@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Text = UnityEngine.UI.Text;
 using Tween = Pixelplacement.Tween;
@@ -65,15 +66,24 @@ namespace Loop.Managers
             Tween.AnchoredPosition(a.transform, a.finalPosition, 2, 0, Tween.EaseOutBack, Tween.LoopType.None, null, ShowEntryTimer);
         }
 
-        private void ShowExitText()
-        {
-            _timerText.text = _exitText;
-            _exitText = "";
-        }
-
-        public void EndAnim(string text)
+        public void ShowExitText(string text)
         {
             _exitText = text;
+            _timerText.text = _exitText;
+            _exitText = "";
+
+            EndAnim();
+        }
+
+        private void Reload()
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.UnloadSceneAsync(scene.name);
+            SceneManager.LoadSceneAsync(scene.name);
+        }
+
+        private void EndAnim()
+        {
             Animatable a;
             for (int i = 0; i < _endAnimatables.Count - 1; i++)
             {
@@ -84,7 +94,7 @@ namespace Loop.Managers
 
             a = _endAnimatables[_endAnimatables.Count - 1];
             a.transform.anchoredPosition = a.finalPosition;
-            Tween.AnchoredPosition(a.transform, a.initPosition, 2, 0, Tween.EaseOutBack, Tween.LoopType.None, null, ShowExitText);
+            Tween.AnchoredPosition(a.transform, a.initPosition, 2, 0, Tween.EaseOutBack, Tween.LoopType.None, null, Reload);
         }
 
         public void Confetti(Vector3 position)

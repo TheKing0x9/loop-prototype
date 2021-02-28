@@ -3,6 +3,7 @@ using Text = UnityEngine.UI.Text;
 using RoundData = Loop.Data.RoundData;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 using Singleton = Pixelplacement.Singleton<Loop.Managers.GameManager>;
+using Button = UnityEngine.UI.Button;
 
 namespace Loop.Managers
 {
@@ -32,6 +33,11 @@ namespace Loop.Managers
         [SerializeField] private Text _playerScoreText;
         [SerializeField] private Text _AIScoreText;
 
+        [Header("Input")]
+
+        [SerializeField] private Button _leftButton;
+        [SerializeField] private Button _rightButton;
+
         [Header("Debug")]
 
         [SerializeField] private GameState _gameState = GameState.Start;
@@ -58,7 +64,7 @@ namespace Loop.Managers
             {
                 case GameState.Start : GameStart(); break;
                 case GameState.Running : GameUpdate(); break;
-                case GameState.End : GameEnd(); break;
+                case GameState.End : break;
             }
         }
 
@@ -84,6 +90,17 @@ namespace Loop.Managers
             {
                 _timer = 0f;
                 _gameState = GameState.End;
+                if(Won())
+                {
+                    EffectsManager.Instance.Confetti(_target.position);
+                    SoundEffectsManager.Instance.Win();
+                }
+                else
+                {
+                    SoundEffectsManager.Instance.Lose();
+                }
+
+                GameEnd();
             }
         }
 
@@ -94,8 +111,6 @@ namespace Loop.Managers
             var text = "";
             if (Won())
             {
-                SoundEffectsManager.Instance.Win();
-                EffectsManager.Instance.Confetti(_target.position);
                 _roundData.CurrentRound++;
                 if (_roundData.CurrentRound > _roundData.RoundsPerLevel)
                 {
@@ -115,19 +130,12 @@ namespace Loop.Managers
             }
             else if (Lost())
             {
-                SoundEffectsManager.Instance.Lose();
 
                 text = "You Lost the Round";
                 _roundData.CurrentLevel = 1;
             }
 
-            EffectsManager.Instance.EndAnim(text);
-
-            _timer += Time.deltaTime;
-            if (_timer > _endDelay)
-            {
-                //SceneManager.LoadScene(1);
-            }
+            EffectsManager.Instance.ShowExitText(text);
         }
 
         private void SetText()
@@ -162,6 +170,10 @@ namespace Loop.Managers
         {
             _player = Instantiate (_playerGO, _playerSpawnPoint.position, Quaternion.identity, null).GetComponent<LoopManager>();
             _AI = Instantiate (_AIGO, _AISpawnPoint.position, Quaternion.identity, null).GetComponent<LoopManager>();
+
+            Loop.Players.Player _playerScript = _player.transform.GetComponent<Loop.Players.Player>();
+            _leftButton.onClick.AddListener(delegate(){ _playerScript.SetInput(-1); SoundEffectsManager.Instance.Jump();});
+            _rightButton.onClick.AddListener(delegate(){ _playerScript.SetInput(1); SoundEffectsManager.Instance.Jump(); });
         }
 
         private void EnableControls()

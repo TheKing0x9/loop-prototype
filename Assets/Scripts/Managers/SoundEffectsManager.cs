@@ -10,6 +10,7 @@ namespace Loop.Managers
         [SerializeField] private AudioClip _winClip;
         [SerializeField] private AudioClip _loseClip;
         [SerializeField] private AudioClip _applauseClip;
+        [SerializeField] private AudioSource _jump;
 
         private void Awake() {
             _source = GetComponent<AudioSource>();
@@ -19,6 +20,11 @@ namespace Loop.Managers
         {
             _source.clip = _winClip;
             _source.Play();
+        }
+
+        public void Jump()
+        {
+            _jump.Play();
         }
 
         public void Lose()
