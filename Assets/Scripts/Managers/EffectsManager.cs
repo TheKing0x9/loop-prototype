@@ -77,9 +77,9 @@ namespace Loop.Managers
 
         private void Reload()
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.UnloadSceneAsync(scene.name);
-            SceneManager.LoadSceneAsync(scene.name);
+            //Scene scene = SceneManager.GetActiveScene();
+            //SceneManager.UnloadSceneAsync(scene.name);
+            //SceneManager.LoadSceneAsync(scene.name);
         }
 
         private void EndAnim()

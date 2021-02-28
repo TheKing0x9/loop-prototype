@@ -54,6 +54,7 @@ namespace Loop.Managers
         {
             _timer = 0f;
             SpawnAllLoops();
+            SetText();
             _gameState = GameState.Start;
             EffectsManager.Instance.StartAnim();
         }
