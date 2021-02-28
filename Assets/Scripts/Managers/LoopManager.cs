@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Loop.Gameplay
+namespace Loop.Managers
 {
     public class LoopManager : MonoBehaviour
     {

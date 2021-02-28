@@ -5,8 +5,13 @@ using IEnumerator = System.Collections.IEnumerator;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 using Singleton = Pixelplacement.Singleton<Loop.Gameplay.GameManager>;
 
-namespace Loop.Gameplay
+namespace Loop.Managers
 {
+    public enum GameState 
+    {
+        Start, Running, End
+    }
+
     public class GameManager : Singleton
     {
         [SerializeField] private RoundData _roundData;
@@ -27,58 +32,67 @@ namespace Loop.Gameplay
         [SerializeField] private Text _playerScoreText;
         [SerializeField] private Text _AIScoreText;
 
+        [Header("Debug")]
+
+        [SerializeField] private GameState _gameState = GameState.Start;
+
         
         private float _playerPoints;
         private float _AIPoints;
-        private WaitForSeconds _startWait;
-        private WaitForSeconds _endWait;
         private LoopManager _AI;
         private LoopManager _player;
         private LoopManager _leader;
+        private float _timer;
 
         private void Start()
         {
-            _startWait = new WaitForSeconds(_startDelay);
-            _endWait = new WaitForSeconds(_endDelay);
-
+            _timer = 0f;
             SpawnAllLoops();
-
-            StartCoroutine(GameLoop());
+            _gameState = GameState.Start;
         }
 
-        private IEnumerator GameLoop()
+        private void Update() 
         {
-            yield return StartCoroutine(GameStart());
-
-            yield return StartCoroutine(GameUpdate());
-
-            yield return StartCoroutine(GameEnd());
-
-            if (!(Won() || Lost()))
+            switch(_gameState)    
             {
-                StartCoroutine(GameLoop());
-            }
-            else
-            {
-                SceneManager.LoadScene(1);
+                case GameState.Start : GameStart(); break;
+                case GameState.Running : GameUpdate(); break;
+                case GameState.End : GameEnd(); break;
             }
         }
 
-        private IEnumerator GameStart()
+        private void GameStart()
         {
             Debug.Log("start");
             DisableControls();
             _leader = null;
             _crown.gameObject.SetActive(false);
 
-            yield return _startWait;
+            _timer += Time.deltaTime;
+            if (_timer > _startDelay) 
+            {
+                _gameState = GameState.Running;
+            }
         }
 
-        private IEnumerator GameEnd()
+        private void GameUpdate()
         {
+            EnableControls();
+            SetCrownPosition();
+
+            if (Won() || Lost())
+            {
+                _timer = 0f;
+                _gameState = GameState.End;
+            }
+        }
+
+        private void GameEnd()
+        {
+            DisableControls();
             Debug.Log("end");
             var text = "";
-            if(Won())
+            if (Won())
             {
                 _roundData.CurrentRound++;
                 if (_roundData.CurrentRound > _roundData.RoundsPerLevel)
@@ -103,18 +117,17 @@ namespace Loop.Gameplay
                 _roundData.CurrentLevel = 1;
             }
 
-            yield return _endWait;
+            _timer += Time.deltaTime;
+            if (_timer > _endDelay)
+            {
+                SceneManager.LoadScene(1);
+            }
         }
 
-        private IEnumerator GameUpdate()
+        private void SetText()
         {
-            EnableControls();
-            SetCrownPosition();
-
-            if(!(Won() || Lost()))
-            {
-                yield return null;
-            }
+            _playerScoreText.text = _playerPoints.ToString();
+            _AIScoreText.text = _AIPoints.ToString();
         }
 
         private void SetCrownPosition()
@@ -164,8 +177,7 @@ namespace Loop.Gameplay
             else
                 _AIPoints++;
 
-            _playerScoreText.text = _playerPoints.ToString();
-            _AIScoreText.text = _AIPoints.ToString(); 
+            SetText();
             SetLeader();
         }
 
