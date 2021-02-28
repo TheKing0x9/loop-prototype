@@ -43,6 +43,7 @@ namespace Loop.Managers
             yield return new WaitForSeconds(1);
 
             _timerText.text = "";
+            GameManager.Instance.StartGame();
         }
 
         private void OnDestroy() {

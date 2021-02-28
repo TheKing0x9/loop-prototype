@@ -68,12 +68,11 @@ namespace Loop.Managers
             DisableControls();
             _leader = null;
             _crown.gameObject.SetActive(false);
+        }
 
-            _timer += Time.deltaTime;
-            if (_timer > _startDelay) 
-            {
-                _gameState = GameState.Running;
-            }
+        public void StartGame()
+        {
+            _gameState = GameState.Running;
         }
 
         private void GameUpdate()
@@ -95,6 +94,7 @@ namespace Loop.Managers
             var text = "";
             if (Won())
             {
+                SoundEffectsManager.Instance.Win();
                 EffectsManager.Instance.Confetti(_target.position);
                 _roundData.CurrentRound++;
                 if (_roundData.CurrentRound > _roundData.RoundsPerLevel)
@@ -113,16 +113,20 @@ namespace Loop.Managers
                     text = "You Completed the Game";
                 }
             }
-            else
+            else if (Lost())
             {
+                SoundEffectsManager.Instance.Lose();
+
                 text = "You Lost the Round";
                 _roundData.CurrentLevel = 1;
             }
 
+            EffectsManager.Instance.EndAnim(text);
+
             _timer += Time.deltaTime;
             if (_timer > _endDelay)
             {
-                SceneManager.LoadScene(1);
+                //SceneManager.LoadScene(1);
             }
         }
 
@@ -181,7 +185,11 @@ namespace Loop.Managers
 
             SetText();
             SetLeader();
-            EffectsManager.Instance.Confetti(_target.position);
+            if (_isPlayer)
+            {
+                SoundEffectsManager.Instance.Applause();
+                EffectsManager.Instance.Confetti(_target.position);
+            }
         }
 
 
