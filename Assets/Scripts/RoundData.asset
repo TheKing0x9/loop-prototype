@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebfd22f35ebd2df4e8f8fb88ccec5581, type: 3}
-  m_Name: LevelData
+  m_Script: {fileID: 11500000, guid: f091a790f84f5b44690fe9e629fc121d, type: 3}
+  m_Name: RoundData
   m_EditorClassIdentifier: 
-  _name: 
-  _desc: 
-  _groundMaterial: {fileID: 0}
+  currentLevel: 1
+  currentRound: 1
+  roundsPerLevel: 3
+  maxLevels: 3

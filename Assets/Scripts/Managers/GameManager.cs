@@ -1,9 +1,8 @@
 using UnityEngine;
 using Text = UnityEngine.UI.Text;
 using RoundData = Loop.Data.RoundData;
-using IEnumerator = System.Collections.IEnumerator;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
-using Singleton = Pixelplacement.Singleton<Loop.Gameplay.GameManager>;
+using Singleton = Pixelplacement.Singleton<Loop.Managers.GameManager>;
 
 namespace Loop.Managers
 {

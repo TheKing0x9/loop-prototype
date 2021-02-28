@@ -6,13 +6,6 @@ using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Loop.UI
 {
-    [System.Serializable]
-    struct Animatable
-    {
-        public RectTransform transform;
-        public Vector3 initPosition;
-        public Vector3 finalPosition;
-    }
     public class MenuManager : MonoBehaviour
     {
         [SerializeField] private List<Animatable> _animatables;

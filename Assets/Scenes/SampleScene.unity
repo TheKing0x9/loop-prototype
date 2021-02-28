@@ -1205,6 +1205,7 @@ MonoBehaviour:
   _AIGO: {fileID: 903649165729859648, guid: 935389aecaf5b414f91e757ca94cb212, type: 3}
   _playerScoreText: {fileID: 1625518903}
   _AIScoreText: {fileID: 130663081}
+  _gameState: 0
 --- !u!114 &1485898535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,6 +1305,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: e97d0ca61efa9294093706ded393c355,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d2bb84ab9d1830448bfbf54893573a1a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e97d0ca61efa9294093706ded393c355, type: 3}
 --- !u!1 &1597046556
